@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { BattleState } from './core/state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([], {
+    NgxsModule.forRoot([BattleState], {
       developmentMode: !environment.production,
     }),
     MatToolbarModule,

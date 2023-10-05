@@ -79,7 +79,8 @@ export class BattleState {
   @Action(Battle.FetchResourceList)
   fetchResourceCount(ctx: StateContext<BattleStateModel>) {
     const { resourceType } = ctx.getState();
-    return this.apiService.getItems(resourceType).pipe(
+    //fetching with limit 0 will return the whole list
+    return this.apiService.getItems(resourceType, 1, 0).pipe(
       map((list) => {
         return ctx.dispatch(
           new Battle.FetchResourceListSuccess({

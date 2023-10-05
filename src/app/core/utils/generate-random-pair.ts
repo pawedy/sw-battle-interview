@@ -1,7 +1,7 @@
 import { ApiEntry, ApiListItem } from '../models';
 
 export function getRandomId(max: number): number {
-  return Math.floor(Math.random() * max) + 1;
+  return Math.floor(Math.random() * max);
 }
 
 export function generateRandomIdPair(max: number): [number, number] {

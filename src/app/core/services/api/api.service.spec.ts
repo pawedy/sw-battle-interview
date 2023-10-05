@@ -6,7 +6,8 @@ import {
 import { ApiService } from './api.service';
 import { ApiResource } from '../../enums';
 import { environment } from '../../../../environments/environment';
-import { peopleMockItem, peopleMockList } from '../../../../test-mocks';
+import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
+import { ApiEntry, ApiList, PeopleProperties } from '../../models';
 
 describe('ApiService', () => {
   let service: ApiService<any>;
@@ -33,7 +34,7 @@ describe('ApiService', () => {
   });
 
   it('should fetch people from the API', () => {
-    const mockItems = peopleMockList;
+    const mockItems: ApiList = peopleMockList;
 
     service.getItems(apiResource).subscribe((items) => {
       expect(items).toEqual(mockItems);
@@ -49,7 +50,7 @@ describe('ApiService', () => {
   });
 
   it('should fetch proplr by id from the API', () => {
-    const mockItem = peopleMockItem;
+    const mockItem: ApiEntry<PeopleProperties> = peopleMockItems[1];
 
     service.getItem(apiResource, '1').subscribe((item) => {
       expect(item).toEqual(mockItem);

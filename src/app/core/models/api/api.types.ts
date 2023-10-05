@@ -33,7 +33,11 @@ export interface GeneralEntryProperties {
 }
 
 export interface Api<EntryProperties> {
-  getItems(resource: ApiResource, page?: number): Observable<ApiList>;
+  getItems(
+    resource: ApiResource,
+    page?: number,
+    limit?: number
+  ): Observable<ApiList>;
   getItem(
     resource: ApiResource,
     id: string
