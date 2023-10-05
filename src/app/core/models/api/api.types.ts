@@ -36,6 +36,6 @@ export interface Api<EntryProperties> {
   getItems(resource: ApiResource, page?: number): Observable<ApiList>;
   getItem(
     resource: ApiResource,
-    id: number
+    id: string
   ): Observable<ApiEntry<EntryProperties>>;
 }

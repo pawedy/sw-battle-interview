@@ -51,7 +51,7 @@ describe('ApiService', () => {
   it('should fetch proplr by id from the API', () => {
     const mockItem = peopleMockItem;
 
-    service.getItem(apiResource, 1).subscribe((item) => {
+    service.getItem(apiResource, '1').subscribe((item) => {
       expect(item).toEqual(mockItem);
     });
 

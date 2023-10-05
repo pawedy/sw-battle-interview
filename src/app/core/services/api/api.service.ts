@@ -29,7 +29,7 @@ export class ApiService<Player> implements Api<Player> {
     });
   }
 
-  getItem(resource: ApiResource, id: number): Observable<ApiEntry<Player>> {
+  getItem(resource: ApiResource, id: string): Observable<ApiEntry<Player>> {
     return this.http.get<ApiEntry<Player>>(
       `${environment.apiBaseUrl}/${resource}/${id}`
     );
