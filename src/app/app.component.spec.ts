@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxsModule, Store } from '@ngxs/store';
-import { APP_TITLE } from './constants';
+import { APP_TITLE } from './core/constants';
 import { Title } from '@angular/platform-browser';
 import { routes } from './app-routing.module';
 

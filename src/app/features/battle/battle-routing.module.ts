@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BattleComponent } from './battle.component';
-import { APP_TITLE } from '../../constants';
+import { APP_TITLE } from '../../core/constants';
 
 const routes: Routes = [
   {
     path: '',
     component: BattleComponent,
-    title: `${APP_TITLE} - Fight`
+    title: `${APP_TITLE} - Fight`,
   },
 ];
 
