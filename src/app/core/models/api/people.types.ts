@@ -1,7 +1,6 @@
-import { ApiList } from './api.types';
+import { GeneralEntryProperties } from './api.types';
 
-export interface PeopleItem {
-  name: string;
+export interface PeopleProperties extends GeneralEntryProperties {
   height: string;
   mass: string;
   hair_color: string;
@@ -10,13 +9,4 @@ export interface PeopleItem {
   birth_year: string;
   gender: string;
   homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
 }
-
-export interface PeopleList extends ApiList<PeopleItem> {}

@@ -1,4 +1,4 @@
-import { PeopleItem } from './api/people.types';
-import { StarshipsItem } from './api/starships.types';
+import { PeopleProperties } from './api/people.types';
+import { StarshipsProperties } from './api/starships.types';
 
-export type Player = PeopleItem | StarshipsItem;
+export type Player = StarshipsProperties | PeopleProperties;
