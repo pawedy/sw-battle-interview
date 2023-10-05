@@ -1,0 +1,25 @@
+$contentWidth: 240px;
+$formElementsMargin: 24px;
+$formPadding: 24px;
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.battle-form {
+  width: $contentWidth;
+  padding: $formPadding;
+  display: flex;
+  flex-direction: column;
+
+  mat-button-toggle-group {
+    margin-bottom: $formElementsMargin;
+
+    mat-button-toggle {
+      flex: 1;
+    }
+  }
+}
