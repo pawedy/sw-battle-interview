@@ -3,14 +3,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxsModule, Store } from '@ngxs/store';
+import { APP_TITLE } from './constants';
+import { Title } from '@angular/platform-browser';
+import { routes } from './app-routing.module';
 
 describe('AppComponent', () => {
-  beforeEach(() =>
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NgxsModule.forRoot([]), MatToolbarModule],
+      imports: [
+        RouterTestingModule.withRoutes(routes),
+        NgxsModule.forRoot([]),
+        MatToolbarModule,
+      ],
       declarations: [AppComponent],
-    })
-  );
+    });
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -23,18 +30,14 @@ describe('AppComponent', () => {
     expect(store).toBeTruthy();
   });
 
-  it(`should have as title 'sw-battle-interview'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('sw-battle-interview');
-  });
-
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
+    const titleService = TestBed.inject(Title);
+    titleService.setTitle(APP_TITLE);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('mat-toolbar span')?.textContent).toContain(
-      'sw-battle-interview app is running!'
+      APP_TITLE
     );
   });
 });
