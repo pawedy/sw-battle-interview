@@ -60,6 +60,6 @@ export namespace Battle {
   //simplified error handling for the purpose of the excercise
   export class ThrowError {
     static readonly type = '[Battle] Battle failed';
-    constructor(public payload: { error: string }) {}
+    constructor(public payload: { error: Error }) {}
   }
 }

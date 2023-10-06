@@ -9,4 +9,5 @@ export interface BattleStateModel {
   winner: Winner;
   player1Wins: number;
   player2Wins: number;
+  error: Error | null;
 }

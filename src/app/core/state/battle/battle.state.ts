@@ -26,6 +26,7 @@ const defaults: BattleStateModel = {
   winner: Winner.DRAW,
   player1Wins: 0,
   player2Wins: 0,
+  error: null,
 };
 
 @State<BattleStateModel>({
@@ -66,21 +67,27 @@ export class BattleState {
 
   @Action(Battle.StartNewMatch)
   startNewMatch(ctx: StateContext<BattleStateModel>) {
-    const state = ctx.getState();
-    const { resourceList } = state;
-    const [player1Id, player2Id] = generateRandomIdPair(resourceList.length);
-    const [player1Uid, player2Uid] = getPairUids(
-      resourceList,
-      player1Id,
-      player2Id
-    );
-
-    return ctx.dispatch(
-      new Battle.FetchPlayers({
-        player1Uid,
-        player2Uid,
-      })
-    );
+    try {
+      const state = ctx.getState();
+      const { resourceList } = state;
+      const [player1Id, player2Id] = generateRandomIdPair(resourceList.length);
+      const [player1Uid, player2Uid] = getPairUids(
+        resourceList,
+        player1Id,
+        player2Id
+      );
+      return ctx.dispatch(
+        new Battle.FetchPlayers({
+          player1Uid,
+          player2Uid,
+        })
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        ctx.dispatch(new Battle.ThrowError({ error }));
+      }
+    }
+    return;
   }
 
   @Action(Battle.FetchResourceList)
@@ -165,13 +172,21 @@ export class BattleState {
 
   @Action(Battle.DetermineWinner)
   determineWinner(ctx: StateContext<BattleStateModel>) {
-    const [player1Value, player2Value] = this.getPlayerAttValuesToCompare(ctx);
-    if (player1Value > player2Value) {
-      return of(ctx.dispatch(new Battle.Player1Wins()));
+    try {
+      const [player1Value, player2Value] =
+        this.getPlayerAttValuesToCompare(ctx);
+      if (player1Value > player2Value) {
+        return of(ctx.dispatch(new Battle.Player1Wins()));
+      }
+      if (player1Value < player2Value) {
+        return of(ctx.dispatch(new Battle.Player2Wins()));
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        ctx.dispatch(new Battle.ThrowError({ error }));
+      }
     }
-    if (player1Value < player2Value) {
-      return of(ctx.dispatch(new Battle.Player2Wins()));
-    }
+
     return of(ctx.dispatch(new Battle.PlayersDraw()));
   }
 
@@ -208,6 +223,16 @@ export class BattleState {
     });
   }
 
+  @Action(Battle.ThrowError)
+  throwError(
+    ctx: StateContext<BattleStateModel>,
+    { payload }: Battle.ThrowError
+  ) {
+    ctx.patchState({
+      error: payload.error,
+    });
+  }
+
   @Selector()
   static resourceType({ resourceType }: BattleStateModel) {
     return resourceType;
@@ -226,6 +251,11 @@ export class BattleState {
   @Selector()
   static winCount({ player1Wins, player2Wins }: BattleStateModel) {
     return { player1Wins, player2Wins };
+  }
+
+  @Selector()
+  static error({ error }: BattleStateModel) {
+    return error;
   }
 
   private getPlayerAttValuesToCompare(

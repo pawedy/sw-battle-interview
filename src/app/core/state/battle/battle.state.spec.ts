@@ -19,6 +19,7 @@ export const TEST_STATE: BattleStateModel = {
   winner: Winner.PLAYER1,
   player1Wins: 1,
   player2Wins: 0,
+  error: null,
 };
 
 describe('Battle state', () => {

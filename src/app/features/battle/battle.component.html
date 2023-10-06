@@ -1,41 +1,47 @@
-<main>
-  <div class="loader" *ngIf="loadingBattle$ | async; else battle">
-    <mat-spinner></mat-spinner>
-    Loading new battle...
-  </div>
-  <ng-template #battle>
-    <div class="battle-container">
-      <swb-winner-bar
-        [winner]="winner$ | async"
-        [winCount]="winCount$ | async"
-      ></swb-winner-bar>
-      <section class="player-cards" *ngIf="players$ | async as players">
-        <!-- TODO: remove casting to any -->
-        <swb-player-card
-          player="Player 1"
-          [name]="$any(players.player1?.name)"
-          [playerProps]="$any(players.player1?.props)"
-        ></swb-player-card>
-        <div class="versus">VS</div>
-        <swb-player-card
-          player="Player 2"
-          [name]="$any(players.player2?.name)"
-          [playerProps]="$any(players.player2?.props)"
-        ></swb-player-card>
-      </section>
-      <section class="buttons">
-        <button
-          class="start-battle-button"
-          mat-raised-button
-          color="primary"
-          (click)="startNewMatch()"
-        >
-          Start new fight
-        </button>
-        <button class="reset-wins-button" mat-button (click)="resetWins()">
-          Reset win count
-        </button>
-      </section>
+<div class="battle-error" *ngIf="error$ | async; else main">
+  <h2>Error</h2>
+  <p>A team of highly trained droids has been dispatched</p>
+</div>
+<ng-template #main>
+  <main>
+    <div class="loader" *ngIf="loadingBattle$ | async; else battle">
+      <mat-spinner></mat-spinner>
+      Loading new battle...
     </div>
-  </ng-template>
-</main>
+    <ng-template #battle>
+      <div class="battle-container">
+        <swb-winner-bar
+          [winner]="winner$ | async"
+          [winCount]="winCount$ | async"
+        ></swb-winner-bar>
+        <section class="player-cards" *ngIf="players$ | async as players">
+          <!-- TODO: remove casting to any -->
+          <swb-player-card
+            player="Player 1"
+            [name]="$any(players.player1.name)"
+            [playerProps]="$any(players.player1.props)"
+          ></swb-player-card>
+          <div class="versus">VS</div>
+          <swb-player-card
+            player="Player 2"
+            [name]="$any(players.player2.name)"
+            [playerProps]="$any(players.player2.props)"
+          ></swb-player-card>
+        </section>
+        <section class="buttons">
+          <button
+            class="start-battle-button"
+            mat-raised-button
+            color="primary"
+            (click)="startNewMatch()"
+          >
+            Start new fight
+          </button>
+          <button class="reset-wins-button" mat-button (click)="resetWins()">
+            Reset win count
+          </button>
+        </section>
+      </div>
+    </ng-template>
+  </main>
+</ng-template>

@@ -26,6 +26,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   public players$ = this.battleService.players$;
   public winCount$ = this.battleService.winCount$;
   public winner$ = this.battleService.winner$;
+  public error$ = this.battleService.error$;
 
   public ngOnInit(): void {
     this.route.queryParamMap
