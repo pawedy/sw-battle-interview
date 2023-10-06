@@ -1,6 +1,6 @@
 <main>
   <section class="battle-form">
-    <h4 class="mat-h4">Choose what should fight:</h4>
+    <h4>Choose what should fight:</h4>
     <mat-button-toggle-group [formControl]="battleTypeForm">
       <mat-button-toggle [value]="ResourceTypes.PEOPLE"
         >People</mat-button-toggle
@@ -10,7 +10,12 @@
       >
     </mat-button-toggle-group>
 
-    <button class="start-battle-button" mat-raised-button color="primary" (click)="startBattle()">
+    <button
+      class="start-battle-button"
+      mat-raised-button
+      color="primary"
+      (click)="startBattle()"
+    >
       Start Battle
     </button>
   </section>

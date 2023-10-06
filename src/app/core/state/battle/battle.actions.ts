@@ -37,6 +37,10 @@ export namespace Battle {
     constructor(public payload: { player1: Resource; player2: Resource }) {}
   }
 
+  export class DetermineWinner {
+    static readonly type = '[Battle] Determine Winner';
+  }
+
   export class Player1Wins {
     static readonly type = '[Battle] Player 1 Wins';
   }

@@ -1,1 +1,29 @@
-<span>Battle!</span>
+<main>
+  <div class="loader" *ngIf="loadingBattle$ | async; else battle">
+    <mat-spinner></mat-spinner>
+    Loading new battle...
+  </div>
+  <ng-template #battle>
+    <section class="player-cards" *ngIf="players$ | async as players">
+      <!-- TODO: remove casting to any -->
+      <swb-player-card
+        [name]="$any(players.player1?.name)"
+        [playerProps]="$any(players.player1?.props)"
+      ></swb-player-card>
+      <div class="versus">VS</div>
+      <swb-player-card
+        [name]="$any(players.player2?.name)"
+        [playerProps]="$any(players.player2?.props)"
+      ></swb-player-card>
+    </section>
+    {{ winner$ | async }}
+    <button
+      class="start-battle-button"
+      mat-raised-button
+      color="primary"
+      (click)="startNewMatch()"
+    >
+      Start new battle
+    </button>
+  </ng-template>
+</main>

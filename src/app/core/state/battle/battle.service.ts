@@ -25,6 +25,8 @@ export class BattleService {
 
   public resourceType$ = this.store.select(BattleState.resourceType);
 
+  public winner$ = this.store.select(BattleState.winner);
+
   public initiateBattle(resourceType: ApiResourceType) {
     this.store.dispatch(new Battle.InitiateBattle({ resourceType }));
   }

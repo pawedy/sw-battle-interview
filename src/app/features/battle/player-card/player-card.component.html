@@ -1,0 +1,11 @@
+<mat-card [ngClass]="{ winning: isWinning }">
+  <mat-card-header>
+    <mat-card-title>{{ name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngFor="let prop of playerProps | keyvalue">
+      <span class="prop-name">{{ prop.key | translate }}</span
+      >: <span class="prop-value">{{ prop.value }}</span>
+    </p>
+  </mat-card-content>
+</mat-card>

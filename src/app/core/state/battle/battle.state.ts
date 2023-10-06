@@ -10,9 +10,13 @@ import { ApiResourceType, Players } from '../../enums';
 import {
   generateRandomIdPair,
   getPairUids,
+  isPeople,
+  isStarship,
   mapResourceToPlayer,
+  parseAttrToNumber,
 } from '../../utils';
 import { Api, Resource } from '../../models';
+import { WIN_DETERMINANTS } from '../../constants';
 
 const defaults: BattleStateModel = {
   resourceType: ApiResourceType.PEOPLE,
@@ -155,6 +159,20 @@ export class BattleState {
       player1: mapResourceToPlayer(payload.player1),
       player2: mapResourceToPlayer(payload.player2),
     });
+
+    ctx.dispatch(new Battle.DetermineWinner());
+  }
+
+  @Action(Battle.DetermineWinner)
+  determineWinner(ctx: StateContext<BattleStateModel>) {
+    const [player1Value, player2Value] = this.getPlayerAttValuesToCompare(ctx);
+    if (player1Value > player2Value) {
+      return of(ctx.dispatch(new Battle.Player1Wins()));
+    }
+    if (player1Value < player2Value) {
+      return of(ctx.dispatch(new Battle.Player2Wins()));
+    }
+    return of(ctx.dispatch(new Battle.PlayersDraw()));
   }
 
   @Action(Battle.ResetWinCount)
@@ -201,7 +219,43 @@ export class BattleState {
   }
 
   @Selector()
+  static winner({ winner }: BattleStateModel) {
+    return winner;
+  }
+
+  @Selector()
   static winCount({ player1Wins, player2Wins }: BattleStateModel) {
     return { player1Wins, player2Wins };
+  }
+
+  private getPlayerAttValuesToCompare(
+    ctx: StateContext<BattleStateModel>
+  ): [number, number] {
+    const { resourceType } = ctx.getState();
+    const { player1, player2 } = ctx.getState();
+    const player1Props = player1?.props;
+    const player2Props = player2?.props;
+    let player1Prop: string;
+    let player2Prop: string;
+
+    if (
+      resourceType === ApiResourceType.PEOPLE &&
+      isPeople(player1Props) &&
+      isPeople(player2Props)
+    ) {
+      player1Prop = player1Props[WIN_DETERMINANTS.people];
+      player2Prop = player2Props[WIN_DETERMINANTS.people];
+    } else if (
+      resourceType === ApiResourceType.STARSHIPS &&
+      isStarship(player1Props) &&
+      isStarship(player2Props)
+    ) {
+      player1Prop = player1Props[WIN_DETERMINANTS.starships];
+      player2Prop = player2Props[WIN_DETERMINANTS.starships];
+    } else {
+      throw new Error('Cannot compare the players');
+    }
+
+    return [parseAttrToNumber(player1Prop), parseAttrToNumber(player2Prop)];
   }
 }

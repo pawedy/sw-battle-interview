@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
 import { BattleService } from '../../core/state';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { ApiResourceType } from '../../core/enums';
 
 @Component({
@@ -14,16 +15,17 @@ import { ApiResourceType } from '../../core/enums';
   styleUrls: ['./battle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BattleComponent implements OnInit {
+export class BattleComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   private battleService = inject(BattleService);
-
   public loadingBattle$ = new BehaviorSubject<boolean>(true);
   public players$ = this.battleService.players$;
   public winCount$ = this.battleService.winCount$;
+  public winner$ = this.battleService.winner$;
 
   public ngOnInit(): void {
-    this.battleService.initiateBattle(ApiResourceType.PEOPLE);
-    this.players$.subscribe(() => {
+    this.battleService.initiateBattle(ApiResourceType.STARSHIPS);
+    this.players$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.loadingBattle$.next(false);
     });
   }
@@ -35,5 +37,10 @@ export class BattleComponent implements OnInit {
 
   public resetWins(): void {
     this.battleService.resetWins();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

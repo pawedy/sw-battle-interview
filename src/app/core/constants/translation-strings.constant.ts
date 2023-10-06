@@ -1,0 +1,26 @@
+//just a quick and dirty to show nice names for properties
+
+export const TRANSLATION_STRINGS: { [key: string]: string } = Object.freeze({
+  name: 'Name',
+  height: 'Height',
+  mass: 'Mass',
+  hair_color: 'Hair color',
+  skin_color: 'Skin color',
+  eye_color: 'Eye color',
+  birth_year: 'Birth year',
+  gender: 'Gender',
+  homeworld: 'Homeworld',
+  model: 'Model',
+  starship_class: 'Class',
+  manufacturer: 'Manufacturer',
+  cost_in_credits: 'Cost (Credits)',
+  length: 'Lenght',
+  crew: 'Crew',
+  passengers: 'Passengers',
+  max_atmosphering_speed: 'Max Atmosphering Speed',
+  hyperdrive_rating: 'Hyperdrive Rating',
+  MGLT: 'MGLT',
+  cargo_capacity: 'Cargo capacity',
+  consumables: 'Consumables',
+  pilots: 'Pilots',
+});
