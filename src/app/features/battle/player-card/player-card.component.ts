@@ -8,10 +8,16 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class PlayerCardComponent {
   @Input({ required: true })
+  player!: string;
+
+  @Input({ required: true })
   name!: string;
 
   @Input({ required: true })
   playerProps!: { [key: string]: string | number };
+
+  @Input({ required: true })
+  wins!: number;
 
   @Input()
   isWinning = false;

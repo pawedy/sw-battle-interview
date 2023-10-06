@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { BattleService } from '../../core/state';
 import { BehaviorSubject, Subject, map, takeUntil } from 'rxjs';
-import { ApiResourceType } from '../../core/enums';
+import { ApiResourceType, Players } from '../../core/enums';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,9 +20,12 @@ export class BattleComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   private route = inject(ActivatedRoute);
   private battleService = inject(BattleService);
+  public readonly Players = Players;
+
   public loadingBattle$ = new BehaviorSubject<boolean>(true);
   public players$ = this.battleService.players$;
-  public winCount$ = this.battleService.winCount$;
+  public player1WinCount$ = this.battleService.player1WinCount$;
+  public player2WinCount$ = this.battleService.player2WinCount$;
   public winner$ = this.battleService.winner$;
 
   public ngOnInit(): void {

@@ -5,7 +5,7 @@ import { BattleRoutingModule } from './battle-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { PlayerCardComponent } from './player-card/player-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslatePipe } from '../../core/pipes';
+import { TranslatePipe, WinTimesPipe } from '../../core/pipes';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -16,6 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     MatButtonModule,
   ],
-  declarations: [BattleComponent, PlayerCardComponent, TranslatePipe],
+  declarations: [
+    BattleComponent,
+    PlayerCardComponent,
+    TranslatePipe,
+    WinTimesPipe,
+  ],
 })
 export class BattleModule {}

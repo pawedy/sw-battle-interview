@@ -1,3 +1,5 @@
+//just a quick and dirty to show nice names for properties
+
 import { Pipe, PipeTransform } from '@angular/core';
 import { TRANSLATION_STRINGS } from '../constants';
 @Pipe({ name: 'translate' })

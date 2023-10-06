@@ -1,5 +1,6 @@
 export const parseAttrToNumber = (attr: string): number => {
-  const removedCommas = attr.replaceAll(',', '');
+  const regex = /[,-]/g;
+  const removedCommas = attr.replaceAll(regex, '');
   const numberAttr = Number(removedCommas);
 
   if (isNaN(numberAttr)) {

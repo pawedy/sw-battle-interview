@@ -14,12 +14,9 @@ main {
 }
 
 .player-cards {
-  $min-card-width: 300px;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: minmax($min-card-width, 2fr) 1fr minmax(
-      $min-card-width,
-      2fr
-    );
+  grid-template-columns: 2fr 1fr 2fr;
   padding: 32px;
 }
 
@@ -31,4 +28,10 @@ main {
   font-size: 60px;
   font-weight: 400;
   padding: 16px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

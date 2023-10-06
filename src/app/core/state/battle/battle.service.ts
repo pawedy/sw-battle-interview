@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { BattleState } from './battle.state';
-import { distinctUntilChanged, filter } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs';
 import { Battle } from './battle.actions';
 import { ApiResourceType } from '../../enums';
 
@@ -10,7 +10,7 @@ import { ApiResourceType } from '../../enums';
 })
 export class BattleService {
   private store = inject(Store);
-
+  private winCount$ = this.store.select(BattleState.winCount);
   public players$ = this.store.select(BattleState.players).pipe(
     filter((players) => !!players?.player1 && !!players?.player2),
     distinctUntilChanged((previous, current) => {
@@ -21,10 +21,9 @@ export class BattleService {
     })
   );
 
-  public winCount$ = this.store.select(BattleState.winCount);
-
+  public player1WinCount$ = this.winCount$.pipe(map(({player1Wins}) => player1Wins));
+  public player2WinCount$ = this.winCount$.pipe(map(({player2Wins}) => player2Wins));
   public resourceType$ = this.store.select(BattleState.resourceType);
-
   public winner$ = this.store.select(BattleState.winner);
 
   public initiateBattle(resourceType: ApiResourceType) {
