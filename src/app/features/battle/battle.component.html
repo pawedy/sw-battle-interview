@@ -11,7 +11,7 @@
         [name]="$any(players.player1?.name)"
         [playerProps]="$any(players.player1?.props)"
         [wins]="(player1WinCount$ | async) ?? 0"
-        [isWinning]="(winner$ | async) === Players.PLEYER1"
+        [isWinning]="(winner$ | async) === Players.PLAYER1"
       ></swb-player-card>
       <div class="versus">VS</div>
       <swb-player-card

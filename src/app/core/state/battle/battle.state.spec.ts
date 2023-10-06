@@ -16,7 +16,7 @@ export const TEST_STATE: BattleStateModel = {
   resourceList: peopleMockList.results,
   player1: mapResourceToPlayer(peopleMockItems[0].result.properties),
   player2: mapResourceToPlayer(peopleMockItems[1].result.properties),
-  winner: Players.PLEYER1,
+  winner: Players.PLAYER1,
   player1Wins: 1,
   player2Wins: 0,
 };

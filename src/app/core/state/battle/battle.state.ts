@@ -187,7 +187,7 @@ export class BattleState {
   player1Wins(ctx: StateContext<BattleStateModel>) {
     const { player1Wins } = ctx.getState();
     ctx.patchState({
-      winner: Players.PLEYER1,
+      winner: Players.PLAYER1,
       player1Wins: player1Wins + 1,
     });
   }
