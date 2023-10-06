@@ -10,3 +10,7 @@ const battlePage = new BattlePageObject();
 Cypress.Commands.add('startNewFight', () => {
   battlePage.newFightButton.click();
 });
+
+Cypress.Commands.add('resetWinCount', () => {
+  battlePage.resetCounterButton.click();
+});
