@@ -1,6 +1,6 @@
 import { GeneralEntryProperties } from './api.types';
 
-export interface PeopleProperties extends GeneralEntryProperties {
+export interface PeopleDisplayProperties {
   height: string;
   mass: string;
   hair_color: string;
@@ -10,3 +10,7 @@ export interface PeopleProperties extends GeneralEntryProperties {
   gender: string;
   homeworld: string;
 }
+
+export interface PeopleProperties
+  extends PeopleDisplayProperties,
+    GeneralEntryProperties {}

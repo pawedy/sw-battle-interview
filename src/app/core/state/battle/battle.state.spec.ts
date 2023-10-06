@@ -2,20 +2,20 @@ import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { BattleState } from './battle.state';
 import { BattleStateModel } from './battle.model';
-import { ApiResource, Players } from '../../enums';
+import { ApiResourceType, Players } from '../../enums';
 import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
 import { Battle } from './battle.actions';
 import { ApiService } from '../../services';
-import { Player } from '../../models';
+import { Resource } from '../../models';
 import { HttpClientModule } from '@angular/common/http';
 import { firstValueFrom, of } from 'rxjs';
+import { mapResourceToPlayer } from '../../utils';
 
 export const TEST_STATE: BattleStateModel = {
-  resourceType: ApiResource.PEOPLE,
-  resourceCount: 2,
+  resourceType: ApiResourceType.PEOPLE,
   resourceList: peopleMockList.results,
-  player1: peopleMockItems[0].result.properties,
-  player2: peopleMockItems[1].result.properties,
+  player1: mapResourceToPlayer(peopleMockItems[0].result.properties),
+  player2: mapResourceToPlayer(peopleMockItems[1].result.properties),
   winner: Players.PLEYER1,
   player1Wins: 1,
   player2Wins: 0,
@@ -23,7 +23,7 @@ export const TEST_STATE: BattleStateModel = {
 
 describe('Battle state', () => {
   let store: Store;
-  let apiService: ApiService<Player>;
+  let apiService: ApiService<Resource>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -47,7 +47,7 @@ describe('Battle state', () => {
     );
     await firstValueFrom(
       store.dispatch(
-        new Battle.InitiateBattle({ resourceType: ApiResource.PEOPLE })
+        new Battle.InitiateBattle({ resourceType: ApiResourceType.PEOPLE })
       )
     );
     const players = store.selectSnapshot(BattleState.players);

@@ -1,6 +1,6 @@
 import { GeneralEntryProperties } from './api.types';
 
-export interface StarshipsProperties extends GeneralEntryProperties {
+export interface StarshipsDisplayedProperties {
   model: string;
   starship_class: string;
   manufacturer: string;
@@ -15,3 +15,7 @@ export interface StarshipsProperties extends GeneralEntryProperties {
   consumables: string;
   pilots: string[];
 }
+
+export interface StarshipsProperties
+  extends StarshipsDisplayedProperties,
+    GeneralEntryProperties {}

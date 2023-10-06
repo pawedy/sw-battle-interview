@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { BattleState } from './battle.state';
-import { Observable, distinctUntilChanged, filter } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs';
 import { Battle } from './battle.actions';
-import { Player } from '../../models';
-import { ApiResource } from '../../enums';
+import { ApiResourceType } from '../../enums';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,7 @@ export class BattleService {
 
   public resourceType$ = this.store.select(BattleState.resourceType);
 
-  public initiateBattle(resourceType: ApiResource) {
+  public initiateBattle(resourceType: ApiResourceType) {
     this.store.dispatch(new Battle.InitiateBattle({ resourceType }));
   }
 

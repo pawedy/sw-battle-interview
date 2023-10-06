@@ -1,4 +1,4 @@
 export const environment = Object.freeze({
   production: true,
-  apiBaseUrl: 'https://swapi.dev/api/',
+  apiBaseUrl: 'https://swapi.tech/api',
 });

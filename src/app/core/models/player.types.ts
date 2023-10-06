@@ -1,4 +1,6 @@
-import { PeopleProperties } from './api/people.types';
-import { StarshipsProperties } from './api/starships.types';
+export type PlayerProps = { [key: string]: string | number };
 
-export type Player = StarshipsProperties | PeopleProperties;
+export interface Player {
+  name: string;
+  props: PlayerProps;
+}

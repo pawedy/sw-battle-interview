@@ -1,4 +1,4 @@
-import { ApiEntry, ApiListItem } from '../models';
+import { ApiListItem } from '../models';
 
 export function getRandomId(max: number): number {
   return Math.floor(Math.random() * max);

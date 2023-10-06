@@ -4,16 +4,16 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
-import { ApiResource } from '../../enums';
+import { ApiResourceType } from '../../enums';
 import { environment } from '../../../../environments/environment';
 import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
-import { ApiEntry, ApiList, PeopleProperties } from '../../models';
+import { ApiEntry, ApiList, PeopleProperties, Resource } from '../../models';
 
 describe('ApiService', () => {
-  let service: ApiService<any>;
+  let service: ApiService<Resource>;
   let httpController: HttpTestingController;
   const apiBaseUrl = environment.apiBaseUrl;
-  let apiResource: ApiResource;
+  let apiResource: ApiResourceType;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,7 +21,7 @@ describe('ApiService', () => {
     });
 
     service = TestBed.inject(ApiService);
-    apiResource = ApiResource.PEOPLE;
+    apiResource = ApiResourceType.PEOPLE;
     httpController = TestBed.inject(HttpTestingController);
   });
 

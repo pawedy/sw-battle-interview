@@ -1,9 +1,8 @@
-import { ApiResource, Players } from '../../enums';
+import { ApiResourceType, Players } from '../../enums';
 import { ApiListItem, Player } from '../../models';
 
 export interface BattleStateModel {
-  resourceType: ApiResource;
-  resourceCount: number;
+  resourceType: ApiResourceType;
   resourceList: ApiListItem[];
   player1: Player | null;
   player2: Player | null;

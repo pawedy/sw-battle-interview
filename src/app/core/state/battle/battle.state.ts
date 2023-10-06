@@ -6,13 +6,16 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { ApiService } from '../../services';
 import { Battle } from './battle.actions';
 import { BattleStateModel } from './battle.model';
-import { ApiResource, Players } from '../../enums';
-import { generateRandomIdPair, getPairUids } from '../../utils';
-import { Api, Player } from '../../models';
+import { ApiResourceType, Players } from '../../enums';
+import {
+  generateRandomIdPair,
+  getPairUids,
+  mapResourceToPlayer,
+} from '../../utils';
+import { Api, Resource } from '../../models';
 
 const defaults: BattleStateModel = {
-  resourceType: ApiResource.PEOPLE,
-  resourceCount: 0,
+  resourceType: ApiResourceType.PEOPLE,
   resourceList: [],
   player1: null,
   player2: null,
@@ -27,7 +30,7 @@ const defaults: BattleStateModel = {
 })
 @Injectable()
 export class BattleState {
-  private apiService: Api<Player> = inject(ApiService);
+  private apiService: Api<Resource> = inject(ApiService);
 
   @Action(Battle.SetResourceType)
   setResourceType(
@@ -46,9 +49,9 @@ export class BattleState {
     { payload }: Battle.InitiateBattle
   ) {
     const state = ctx.getState();
-    const { resourceType, resourceCount } = state;
+    const { resourceType, resourceList } = state;
 
-    if (payload.resourceType !== resourceType || !resourceCount) {
+    if (payload.resourceType !== resourceType || !resourceList.length) {
       ctx.setState({ ...defaults, resourceType: payload.resourceType });
       return ctx
         .dispatch(new Battle.FetchResourceList({ resourceType }))
@@ -60,8 +63,8 @@ export class BattleState {
   @Action(Battle.StartNewMatch)
   startNewMatch(ctx: StateContext<BattleStateModel>) {
     const state = ctx.getState();
-    const { resourceCount, resourceList } = state;
-    const [player1Id, player2Id] = generateRandomIdPair(resourceCount);
+    const { resourceList } = state;
+    const [player1Id, player2Id] = generateRandomIdPair(resourceList.length);
     const [player1Uid, player2Uid] = getPairUids(
       resourceList,
       player1Id,
@@ -106,7 +109,6 @@ export class BattleState {
     { payload }: Battle.FetchResourceListSuccess
   ) {
     ctx.patchState({
-      resourceCount: payload.list.total_records,
       resourceList: payload.list.results,
     });
   }
@@ -150,8 +152,8 @@ export class BattleState {
     { payload }: Battle.FetchPlayersSuccess
   ) {
     ctx.patchState({
-      player1: { ...payload.player1 },
-      player2: { ...payload.player2 },
+      player1: mapResourceToPlayer(payload.player1),
+      player2: mapResourceToPlayer(payload.player2),
     });
   }
 

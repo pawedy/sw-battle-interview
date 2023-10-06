@@ -1,25 +1,25 @@
-import { ApiResource } from '../../enums';
-import { ApiList, Player } from '../../models';
+/* eslint-disable @typescript-eslint/no-namespace */
+import { ApiResourceType } from '../../enums';
+import { ApiList, Resource } from '../../models';
 
 export namespace Battle {
   export class SetResourceType {
     static readonly type = '[API] Set Resource Type';
-    constructor(public payload: { resourceType: ApiResource }) {}
+    constructor(public payload: { resourceType: ApiResourceType }) {}
   }
 
   export class InitiateBattle {
     static readonly type = '[API] Initiate battle';
-    constructor(public payload: { resourceType: ApiResource }) {}
+    constructor(public payload: { resourceType: ApiResourceType }) {}
   }
 
   export class StartNewMatch {
     static readonly type = '[Battle] Start New Match';
-    constructor() {}
   }
 
   export class FetchResourceList {
     static readonly type = '[Battle] Fetch Resource List';
-    constructor(public payload: { resourceType: ApiResource }) {}
+    constructor(public payload: { resourceType: ApiResourceType }) {}
   }
 
   export class FetchResourceListSuccess {
@@ -34,7 +34,7 @@ export namespace Battle {
 
   export class FetchPlayersSuccess {
     static readonly type = '[Battle] Fetch Players Success';
-    constructor(public payload: { player1: Player; player2: Player }) {}
+    constructor(public payload: { player1: Resource; player2: Resource }) {}
   }
 
   export class Player1Wins {
@@ -56,6 +56,6 @@ export namespace Battle {
   //simplified error handling for the purpose of the excercise
   export class ThrowError {
     static readonly type = '[Battle] Battle failed';
-    constructor(public payload: { error: any }) {}
+    constructor(public payload: { error: string }) {}
   }
 }

@@ -1,4 +1,4 @@
-export enum ApiResource {
+export enum ApiResourceType {
   PEOPLE = 'people',
-  STARSHIPS = 'starships'
+  STARSHIPS = 'starships',
 }
