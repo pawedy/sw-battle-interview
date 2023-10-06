@@ -15,6 +15,8 @@ export class HomeComponent {
   public battleTypeForm = new FormControl(ApiResourceType.PEOPLE);
 
   public startBattle(): void {
-    this.router.navigateByUrl('/battle');
+    this.router.navigate(['/battle'], {
+      queryParams: { type: this.battleTypeForm.value },
+    });
   }
 }

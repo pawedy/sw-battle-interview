@@ -6,8 +6,9 @@ import {
   inject,
 } from '@angular/core';
 import { BattleService } from '../../core/state';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, map, takeUntil } from 'rxjs';
 import { ApiResourceType } from '../../core/enums';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'swb-battle',
@@ -17,6 +18,7 @@ import { ApiResourceType } from '../../core/enums';
 })
 export class BattleComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
+  private route = inject(ActivatedRoute);
   private battleService = inject(BattleService);
   public loadingBattle$ = new BehaviorSubject<boolean>(true);
   public players$ = this.battleService.players$;
@@ -24,7 +26,19 @@ export class BattleComponent implements OnInit, OnDestroy {
   public winner$ = this.battleService.winner$;
 
   public ngOnInit(): void {
-    this.battleService.initiateBattle(ApiResourceType.STARSHIPS);
+    this.route.queryParamMap
+      .pipe(
+        takeUntil(this.destroy$),
+        map((params) => params.get('type') as ApiResourceType | null)
+      )
+      .subscribe((type) => {
+        const isProperType =
+          type && Object.values(ApiResourceType).includes(type);
+        this.battleService.initiateBattle(
+          isProperType ? type : ApiResourceType.PEOPLE
+        );
+      });
+
     this.players$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.loadingBattle$.next(false);
     });
