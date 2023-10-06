@@ -10,9 +10,15 @@ This is a sample app using SWAPI `https://www.swapi.tech/` to compare between pe
 4. Did not validate or catch everything, but showed that I'm capable of doing so.
 5. Did not modularize that much, it is a small project.
 
+## Prerequisites
+
+Node.js and npm are essential to run this project.
+
+Run `npm i` to intall the necessary packages.
+
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
 ## Build
 
