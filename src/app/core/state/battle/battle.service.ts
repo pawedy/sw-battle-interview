@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { BattleState } from './battle.state';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs';
 import { Battle } from './battle.actions';
 import { ApiResourceType } from '../../enums';
 
