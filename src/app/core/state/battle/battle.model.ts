@@ -1,4 +1,4 @@
-import { ApiResourceType, Players } from '../../enums';
+import { ApiResourceType, Winner } from '../../enums';
 import { ApiListItem, Player } from '../../models';
 
 export interface BattleStateModel {
@@ -6,7 +6,7 @@ export interface BattleStateModel {
   resourceList: ApiListItem[];
   player1: Player | null;
   player2: Player | null;
-  winner: Players | null;
+  winner: Winner;
   player1Wins: number;
   player2Wins: number;
 }

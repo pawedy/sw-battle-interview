@@ -1,8 +1,4 @@
-<header [ngClass]="{ winner: isWinning }" class="player-name">
-  <h2>{{ player }}<span class="winner-text"> is the winner!</span></h2>
-  <p class="win-count">Won: {{ wins | winTimes }}</p>
-</header>
-<mat-card [ngClass]="{ winning: isWinning }">
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{ name }}</mat-card-title>
   </mat-card-header>

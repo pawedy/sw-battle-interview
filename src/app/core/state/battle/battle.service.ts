@@ -10,7 +10,7 @@ import { ApiResourceType } from '../../enums';
 })
 export class BattleService {
   private store = inject(Store);
-  private winCount$ = this.store.select(BattleState.winCount);
+
   public players$ = this.store.select(BattleState.players).pipe(
     filter((players) => !!players?.player1 && !!players?.player2),
     distinctUntilChanged((previous, current) => {
@@ -20,9 +20,7 @@ export class BattleService {
       );
     })
   );
-
-  public player1WinCount$ = this.winCount$.pipe(map(({player1Wins}) => player1Wins));
-  public player2WinCount$ = this.winCount$.pipe(map(({player2Wins}) => player2Wins));
+  public winCount$ = this.store.select(BattleState.winCount);
   public resourceType$ = this.store.select(BattleState.resourceType);
   public winner$ = this.store.select(BattleState.winner);
 

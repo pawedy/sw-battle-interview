@@ -15,10 +15,4 @@ export class PlayerCardComponent {
 
   @Input({ required: true })
   playerProps!: { [key: string]: string | number };
-
-  @Input({ required: true })
-  wins!: number;
-
-  @Input()
-  isWinning = false;
 }

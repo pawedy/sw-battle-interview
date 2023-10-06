@@ -7,6 +7,7 @@ import { PlayerCardComponent } from './player-card/player-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslatePipe, WinTimesPipe } from '../../core/pipes';
 import { MatButtonModule } from '@angular/material/button';
+import { WinnerBarComponent } from './winner-bar/winner-bar.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     BattleComponent,
     PlayerCardComponent,
+    WinnerBarComponent,
     TranslatePipe,
     WinTimesPipe,
   ],

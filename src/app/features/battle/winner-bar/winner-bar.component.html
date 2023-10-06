@@ -1,0 +1,15 @@
+<section
+  [ngClass]="{ winner: winner === WinnerOptions.PLAYER1 }"
+  class="player-name"
+>
+  <h2>Player 1<span class="winner-text"> is the winner!</span></h2>
+  <p class="win-count">Won: {{ winCount?.player1Wins || 0 | winTimes }}</p>
+</section>
+<h2 class="draw" *ngIf="winner === WinnerOptions.DRAW">DRAW</h2>
+<section
+  [ngClass]="{ winner: winner === WinnerOptions.PLAYER2 }"
+  class="player-name"
+>
+  <h2>Player 2<span class="winner-text"> is the winner!</span></h2>
+  <p class="win-count">Won: {{ winCount?.player2Wins || 0 | winTimes }}</p>
+</section>

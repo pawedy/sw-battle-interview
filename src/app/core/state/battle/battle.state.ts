@@ -6,7 +6,7 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { ApiService } from '../../services';
 import { Battle } from './battle.actions';
 import { BattleStateModel } from './battle.model';
-import { ApiResourceType, Players } from '../../enums';
+import { ApiResourceType, Winner } from '../../enums';
 import {
   generateRandomIdPair,
   getPairUids,
@@ -23,7 +23,7 @@ const defaults: BattleStateModel = {
   resourceList: [],
   player1: null,
   player2: null,
-  winner: null,
+  winner: Winner.DRAW,
   player1Wins: 0,
   player2Wins: 0,
 };
@@ -187,7 +187,7 @@ export class BattleState {
   player1Wins(ctx: StateContext<BattleStateModel>) {
     const { player1Wins } = ctx.getState();
     ctx.patchState({
-      winner: Players.PLAYER1,
+      winner: Winner.PLAYER1,
       player1Wins: player1Wins + 1,
     });
   }
@@ -196,7 +196,7 @@ export class BattleState {
   player2Wins(ctx: StateContext<BattleStateModel>) {
     const { player2Wins } = ctx.getState();
     ctx.patchState({
-      winner: Players.PLAYER2,
+      winner: Winner.PLAYER2,
       player2Wins: player2Wins + 1,
     });
   }
@@ -204,7 +204,7 @@ export class BattleState {
   @Action(Battle.PlayersDraw)
   playersDraw(ctx: StateContext<BattleStateModel>) {
     ctx.patchState({
-      winner: null,
+      winner: Winner.DRAW,
     });
   }
 

@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.player-name {
+  width: 300px;
+  text-align: center;
+  .winner-text {
+    display: none;
+  }
+
+  h2 {
+    font-weight: 400;
+  }
+
+  &.winner {
+    .winner-text {
+      display: inline;
+    }
+    h2 {
+      font-weight: 700;
+      color: green;
+    }
+  }
+}
+
+.draw {
+  display: flex;
+  align-items: center;
+  color: darkorange;
+}

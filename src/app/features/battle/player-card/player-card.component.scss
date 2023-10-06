@@ -1,28 +1,9 @@
 .prop-name {
   font-weight: 700;
 }
-
+mat-card {
+  height: 100%;
+}
 mat-card-header {
   margin-bottom: 16px;
-}
-
-.player-name {
-  text-align: center;
-  .winner-text {
-    display: none;
-  }
-
-  h2 {
-    font-weight: 400;
-  }
-
-  &.winner {
-    .winner-text {
-      display: inline;
-    }
-    h2 {
-      font-weight: 700;
-      color: green;
-    }
-  }
 }

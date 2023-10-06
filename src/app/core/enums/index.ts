@@ -1,2 +1,2 @@
 export * from './api-resource.enum';
-export * from './players.enum';
+export * from './winner.enum';

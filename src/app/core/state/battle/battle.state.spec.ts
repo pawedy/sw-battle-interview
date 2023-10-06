@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { BattleState } from './battle.state';
 import { BattleStateModel } from './battle.model';
-import { ApiResourceType, Players } from '../../enums';
+import { ApiResourceType, Winner } from '../../enums';
 import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
 import { Battle } from './battle.actions';
 import { ApiService } from '../../services';
@@ -16,7 +16,7 @@ export const TEST_STATE: BattleStateModel = {
   resourceList: peopleMockList.results,
   player1: mapResourceToPlayer(peopleMockItems[0].result.properties),
   player2: mapResourceToPlayer(peopleMockItems[1].result.properties),
-  winner: Players.PLAYER1,
+  winner: Winner.PLAYER1,
   player1Wins: 1,
   player2Wins: 0,
 };
