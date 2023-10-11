@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { ApiResourceType } from '../../enums';
-import { ApiList, Resource } from '../../models';
+import { ApiList, EntryProperties } from '../../models';
 
 export namespace Battle {
   export class SetResourceType {
@@ -34,7 +34,9 @@ export namespace Battle {
 
   export class FetchPlayersSuccess {
     static readonly type = '[Battle] Fetch Players Success';
-    constructor(public payload: { player1: Resource; player2: Resource }) {}
+    constructor(
+      public payload: { player1: EntryProperties; player2: EntryProperties }
+    ) {}
   }
 
   export class DetermineWinner {

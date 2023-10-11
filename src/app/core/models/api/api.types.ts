@@ -1,8 +1,5 @@
 import { Observable } from 'rxjs';
 import { ApiResourceType } from '../../enums';
-import { StarshipsProperties } from './starships.types';
-import { PeopleProperties } from './people.types';
-
 export interface ApiListItem {
   uid: string;
   name: string;
@@ -18,7 +15,7 @@ export interface ApiList {
   results: ApiListItem[];
 }
 
-export interface ApiEntry<EntryProperties> {
+export interface ApiEntry {
   message: string;
   result: {
     properties: EntryProperties;
@@ -27,23 +24,22 @@ export interface ApiEntry<EntryProperties> {
   };
 }
 
-export interface GeneralEntryProperties {
+export interface SharedEntryProperties {
   name: string;
   created: string;
   edited: string;
   url: string;
 }
 
-export type Resource = StarshipsProperties | PeopleProperties;
+export interface EntryProperties extends SharedEntryProperties {
+  [key: string]: string | number | string[];
+}
 
-export interface Api<EntryProperties> {
+export interface Api {
   getItems(
     resource: ApiResourceType,
     page?: number,
     limit?: number
   ): Observable<ApiList>;
-  getItem(
-    resource: ApiResourceType,
-    id: string
-  ): Observable<ApiEntry<EntryProperties>>;
+  getItem(resource: ApiResourceType, id: string): Observable<ApiEntry>;
 }

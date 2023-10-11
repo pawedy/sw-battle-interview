@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService<Resource> implements Api<Resource> {
+export class ApiService implements Api {
   private http = inject(HttpClient);
 
   getItems(
@@ -29,11 +29,8 @@ export class ApiService<Resource> implements Api<Resource> {
     });
   }
 
-  getItem(
-    resource: ApiResourceType,
-    id: string
-  ): Observable<ApiEntry<Resource>> {
-    return this.http.get<ApiEntry<Resource>>(
+  getItem(resource: ApiResourceType, id: string): Observable<ApiEntry> {
+    return this.http.get<ApiEntry>(
       `${environment.apiBaseUrl}/${resource}/${id}`
     );
   }

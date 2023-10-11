@@ -7,10 +7,10 @@ import { ApiService } from './api.service';
 import { ApiResourceType } from '../../enums';
 import { environment } from '../../../../environments/environment';
 import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
-import { ApiEntry, ApiList, PeopleProperties, Resource } from '../../models';
+import { ApiEntry, ApiList } from '../../models';
 
 describe('ApiService', () => {
-  let service: ApiService<Resource>;
+  let service: ApiService;
   let httpController: HttpTestingController;
   const apiBaseUrl = environment.apiBaseUrl;
   let apiResource: ApiResourceType;
@@ -50,7 +50,7 @@ describe('ApiService', () => {
   });
 
   it('should fetch proplr by id from the API', () => {
-    const mockItem: ApiEntry<PeopleProperties> = peopleMockItems[1];
+    const mockItem: ApiEntry = peopleMockItems[1];
 
     service.getItem(apiResource, '1').subscribe((item) => {
       expect(item).toEqual(mockItem);

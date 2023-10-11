@@ -1,17 +1,10 @@
-import {
-  PeopleDisplayProperties,
-  Player,
-  StarshipsDisplayedProperties,
-} from '../models';
+import { Player } from '../models';
 
-export const isPeople = (
-  props: Player['props'] | null | undefined
-): props is PeopleDisplayProperties => {
-  return (props as PeopleDisplayProperties)?.hair_color !== undefined;
-};
-
-export const isStarship = (
-  props: Player['props'] | null | undefined
-): props is StarshipsDisplayedProperties => {
-  return (props as StarshipsDisplayedProperties)?.crew !== undefined;
+export const isPlayer = (
+  player: Player | null | undefined
+): player is Player => {
+  return (
+    (player as Player)?.name !== undefined &&
+    (player as Player)?.props !== undefined
+  );
 };

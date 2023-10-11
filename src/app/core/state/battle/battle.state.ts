@@ -10,12 +10,11 @@ import { ApiResourceType, Winner } from '../../enums';
 import {
   generateRandomIdPair,
   getPairUids,
-  isPeople,
-  isStarship,
+  isPlayer,
   mapResourceToPlayer,
   parseAttrToNumber,
 } from '../../utils';
-import { Api, Resource } from '../../models';
+import { Api } from '../../models';
 import { WIN_DETERMINANTS } from '../../constants';
 
 const defaults: BattleStateModel = {
@@ -35,7 +34,7 @@ const defaults: BattleStateModel = {
 })
 @Injectable()
 export class BattleState {
-  private apiService: Api<Resource> = inject(ApiService);
+  private apiService: Api = inject(ApiService);
 
   @Action(Battle.SetResourceType)
   setResourceType(
@@ -228,6 +227,7 @@ export class BattleState {
     ctx: StateContext<BattleStateModel>,
     { payload }: Battle.ThrowError
   ) {
+    console.log(payload.error);
     ctx.patchState({
       error: payload.error,
     });
@@ -263,26 +263,23 @@ export class BattleState {
   ): [number, number] {
     const { resourceType } = ctx.getState();
     const { player1, player2 } = ctx.getState();
-    const player1Props = player1?.props;
-    const player2Props = player2?.props;
-    let player1Prop: string;
-    let player2Prop: string;
 
-    if (
-      resourceType === ApiResourceType.PEOPLE &&
-      isPeople(player1Props) &&
-      isPeople(player2Props)
-    ) {
-      player1Prop = player1Props[WIN_DETERMINANTS.people];
-      player2Prop = player2Props[WIN_DETERMINANTS.people];
-    } else if (
-      resourceType === ApiResourceType.STARSHIPS &&
-      isStarship(player1Props) &&
-      isStarship(player2Props)
-    ) {
-      player1Prop = player1Props[WIN_DETERMINANTS.starships];
-      player2Prop = player2Props[WIN_DETERMINANTS.starships];
-    } else {
+    if (!isPlayer(player1) || !isPlayer(player2)) {
+      throw new Error('At least one of the players is not set');
+    }
+
+    const player1Props = player1.props;
+    const player2Props = player2.props;
+
+    const propKeyToCompare =
+      resourceType === ApiResourceType.PEOPLE
+        ? WIN_DETERMINANTS.people
+        : WIN_DETERMINANTS.starships;
+
+    const player1Prop = player1Props[propKeyToCompare];
+    const player2Prop = player2Props[propKeyToCompare];
+
+    if (player1Prop === undefined || player2Prop === undefined) {
       throw new Error('Cannot compare the players');
     }
 

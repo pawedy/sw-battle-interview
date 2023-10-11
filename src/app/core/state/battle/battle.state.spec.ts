@@ -6,7 +6,6 @@ import { ApiResourceType, Winner } from '../../enums';
 import { peopleMockItems, peopleMockList } from '../../../../test-mocks';
 import { Battle } from './battle.actions';
 import { ApiService } from '../../services';
-import { Resource } from '../../models';
 import { HttpClientModule } from '@angular/common/http';
 import { firstValueFrom, of } from 'rxjs';
 import { mapResourceToPlayer } from '../../utils';
@@ -24,7 +23,7 @@ export const TEST_STATE: BattleStateModel = {
 
 describe('Battle state', () => {
   let store: Store;
-  let apiService: ApiService<Resource>;
+  let apiService: ApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
